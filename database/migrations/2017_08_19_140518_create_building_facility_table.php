@@ -14,6 +14,7 @@ class CreateBuildingFacilityTable extends Migration
     public function up()
     {
         Schema::create('building_facility', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('building_id')->unsigned();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('facility_id')->unsigned();
