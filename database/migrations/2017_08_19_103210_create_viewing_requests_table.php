@@ -16,14 +16,14 @@ class CreateViewingRequestsTable extends Migration
         Schema::create('viewing_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('building_id'); // office id
+            $table->integer('building_id')->unsigned(); // office id
             $table->dateTime('viewing_date');// change it to date time
-            $table->string('price_plan');
-            $table->string('deck_number');
+            $table->integer('office_id')->unsigned();
+            $table->integer('desk_number');
             $table->text('message');
-            $table->string('current_status');
+            $table->tinyInteger('current_status')->defualt(0);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

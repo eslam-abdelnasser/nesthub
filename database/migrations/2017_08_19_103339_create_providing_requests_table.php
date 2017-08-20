@@ -19,7 +19,7 @@ class CreateProvidingRequestsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('building_id')->unsigned();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('current_status');
+            $table->tinyInteger('current_status')->defualt(0);
             $table->timestamps();
         });
     }

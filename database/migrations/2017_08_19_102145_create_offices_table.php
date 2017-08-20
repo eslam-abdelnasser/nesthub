@@ -14,17 +14,18 @@ class CreateOfficesTable extends Migration
     public function up()
     {
         Schema::create('offices', function (Blueprint $table) {
-            $table->increments('id')->unsigned()->unique();
+            $table->increments('id');
             $table->integer('building_id')->unsigned();
-            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('office_type');
+            $table->tinyInteger('office_type');
             $table->integer('desk_number');
-            $table->integer('min_rental_per_month');
-            $table->integer('max_rental_per_month');
-            $table->integer('price');
+            $table->double('min_rental_per_month',15,2);
+            $table->double('max_rental_per_month',15,2);
+            $table->double('price',15,2);
             $table->integer('Area');
-            $table->integer('publish_archive');
+            $table->text('feature')->nullable();
+            $table->tinyInteger('publish_archive');
             $table->timestamps();
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
