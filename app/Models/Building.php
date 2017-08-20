@@ -13,15 +13,11 @@ class Building extends Model
     }
     public function facilities()
     {
-        return $this->hasMany(Facility::class);
+        return $this->belongsToMany(Facility::class);
     }
     public function categories()
     {
-        return $this->hasMany(Category::class);
-    }
-    public function highlights()
-    {
-        return $this->hasMany(Highlight::class);
+        return $this->belongsToMany(Category::class);
     }
     public function building_images()
     {

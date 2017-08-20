@@ -27,4 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/test','Admin\DashboardController@index');
+Route::resource('building', 'BuildingController');
+Route::resource('category', 'CategoryController');
+
 

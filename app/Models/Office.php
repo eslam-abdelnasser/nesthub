@@ -11,8 +11,4 @@ class Office extends Model
     {
         return $this->belongsTo(Building::class);
     }
-    public function features()
-    {
-        return $this->hasMany(Feature::class);
-    }
 }
