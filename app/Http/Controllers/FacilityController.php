@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use Illuminate\Http\Request;
+use Session;
 
 class FacilityController extends Controller
 {
@@ -13,8 +15,11 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        //
+        $facilities = Facility::paginate(5);
+        return view('admin.dashboard.facilities.index')->with('facilities',$facilities);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +39,20 @@ class FacilityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request ,array(
+            'name'=>'required|max:200',
+            'status'=>'required|max:1',
+            'type'=>'required|max:1'
+
+        ));
+        $facility = new Facility;
+        $facility->name = $request->name;
+        $facility->status = $request->status;
+        $facility->type = $request->type;
+        $facility->save();
+
+        Session::flash('success',' Facility Added');
+        return redirect()->route('facility.index');
     }
 
     /**
@@ -45,7 +63,8 @@ class FacilityController extends Controller
      */
     public function show($id)
     {
-        //
+        $facility = Facility::find($id);
+        return view('admin.dashboard.facilities.show')->with('facility',$facility);
     }
 
     /**
@@ -56,7 +75,14 @@ class FacilityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facility = Facility::find($id);
+        if($facility->status == 0)
+            $facility->status = 1;
+        else
+            $facility->status = 0;
+        $facility->save();
+        return redirect()->route('facility.index');
+
     }
 
     /**

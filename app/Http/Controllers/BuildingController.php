@@ -40,8 +40,9 @@ class BuildingController extends Controller
     {
         //
         $categories = Category::all();
-        //$facility = Facility::all();
-        return view('admin.dashboard.buildings.create')->with('categories',$categories);
+        $facility = Facility::all();
+        return view('admin.dashboard.buildings.create')->with('categories',$categories)
+            ->with('facilities',$facility);
 
     }
 
@@ -72,20 +73,15 @@ class BuildingController extends Controller
         $building->highlights = $request->highlights;
         $building->phone = $request->phone;
         $building->working_time = $request->working_time;
-        $building->user_id = Auth::user()->id;
+        $building->user_id = 1;
         $building->save();
 
-        $providing_request = new Providing_request;
-        $providing_request->user_id = Auth::user()->id;
-        $providing_request->building_id=$building->id;
-        $providing_request->current_status = '0';
-        $providing_request->save();
 
         $building->categories()->sync($request->categories , false);
+        $building->facilities()->sync($request->facilities,false);
 
 
-
-        Session::flash('success','Your Building now under Request');
+        Session::flash('success',' Your Building now under Request');
 
         return redirect()->route('building.show', $building->id);
     }
@@ -121,7 +117,14 @@ class BuildingController extends Controller
         {
             $categories2[$category->id] = $category->name;
         }
-        return view('admin.dashboard.buildings.edit')->with('building',$building)->with('categories',$categories2);
+        $facilities = Facility::all();
+        $facilities2 = array();
+        foreach ($facilities as $facility)
+        {
+            $facilities2[$facility->id] = $facility->name;
+        }
+        return view('admin.dashboard.buildings.edit')->with('building',$building)->with('categories',$categories2)
+            ->with('facilities',$facilities2);
     }
 
     /**
@@ -152,19 +155,17 @@ class BuildingController extends Controller
         $building->address = $request->input('address');
         $building->phone = $request->input('phone');
         $building->working_time = $request->input('working_time');
-        $building->user_id= Auth::user()->id;
+        $building->user_id= 1;
         $building->save();
 
-        if(isset($request->caregories))
-        {
-            $building->categories()->sync($request->categories);
-        }
-        else{
-            $building->categories()->sync(array());
-        }
+        $building->categories()->sync($request->categories);
+        $building->facilities()->sync($request->facilities);
 
 
-        Session::flash('success','Your Building now Update');
+
+
+
+        Session::flash('success',' Your Building now Update');
 
         return redirect()->route('building.show', $id);
 
