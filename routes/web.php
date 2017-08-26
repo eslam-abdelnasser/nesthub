@@ -19,20 +19,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test','Admin\DashboardController@index');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/test','Admin\DashboardController@index');
 
+Route::get('/test','Admin\DashboardController@index')->name('admin.dashboard');
+Route::get('/control-panel','Admin\Auth\DashboardController@check_validation');
 
-Route::get('/test','Admin\DashboardController@index');
-
-Route::resource('building', 'BuildingController');
-Route::resource('category', 'CategoryController');
-Route::resource('facility', 'FacilityController');
-Route::resource('office ', 'OfficeController');
-Route::post('office/{building_id}',['uses'=>'OfficeController@store' , 'as' => 'office.store']);
+Route::get('/admin-login','Admin\Auth\AdminLoginController@loginForm');
+Route::post('/admin-login','Admin\Auth\AdminLoginController@loginPost')->name('login.post');
+Route::resource('building', 'Admin\BuildingController');
+Route::resource('category', 'Admin\CategoryController');
+Route::resource('facility', 'Admin\FacilityController');
+Route::resource('office ', 'Admin\OfficeController');
+Route::post('office/{building_id}',['uses'=>'Admin\OfficeController@store' , 'as' => 'office.store']);
 
 
 

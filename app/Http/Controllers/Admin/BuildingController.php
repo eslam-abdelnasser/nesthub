@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use App\Models\Building;
 use App\Models\Providing_request;
-
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Session;
+//use Purifier;
+
 
 class BuildingController extends Controller
 {
@@ -28,7 +30,7 @@ class BuildingController extends Controller
     {
         //
         $buildings = Building::paginate(2);
-        return view('admin.dashboard.buildings.index')->with('buildings',$buildings);
+        return view('admin.buildings.index')->with('buildings',$buildings);
     }
 
     /**
@@ -41,7 +43,7 @@ class BuildingController extends Controller
         //
         $categories = Category::all();
         $facility = Facility::all();
-        return view('admin.dashboard.buildings.create')->with('categories',$categories)
+        return view('admin.buildings.create')->with('categories',$categories)
             ->with('facilities',$facility);
 
     }
@@ -97,7 +99,7 @@ class BuildingController extends Controller
         //
 
         $building = Building::find($id);
-        return view('admin.dashboard.buildings.show')->with('building',$building);
+        return view('admin.buildings.show')->with('building',$building);
     }
 
     /**
@@ -119,11 +121,13 @@ class BuildingController extends Controller
         }
         $facilities = Facility::all();
         $facilities2 = array();
+
+//        dd($building->categories()->getRelatedIds());
         foreach ($facilities as $facility)
         {
             $facilities2[$facility->id] = $facility->name;
         }
-        return view('admin.dashboard.buildings.edit')->with('building',$building)->with('categories',$categories2)
+        return view('admin.buildings.edit')->with('building',$building)->with('categories',$categories2)
             ->with('facilities',$facilities2);
     }
 
@@ -150,15 +154,20 @@ class BuildingController extends Controller
         $building = Building::find($id);
         $building->name = $request->input('name');
         $building->description = $request->input('description');
-        $building->highlights = $request->input('highlights');
-        $building->about_us = $request->input('about_us');
+        $building->highlights =  $request->input('highlights');
+        $building->about_us =  $request->input('about_us');
         $building->address = $request->input('address');
         $building->phone = $request->input('phone');
         $building->working_time = $request->input('working_time');
         $building->user_id= 1;
         $building->save();
 
-        $building->categories()->sync($request->categories);
+        if(isset($request->categories)){
+            $building->categories()->sync($request->categories);
+        }else{
+            $building->categories()->sync(array());
+        }
+
         $building->facilities()->sync($request->facilities);
 
 

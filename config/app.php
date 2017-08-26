@@ -182,7 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
-
+//        Mews\Purifier\PurifierServiceProvider::class,
     ],
 
     /*
@@ -237,7 +237,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
-
+//        'Purifier' => Mews\Purifier\Facades\Purifier::class,
     ],
 
 ];

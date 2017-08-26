@@ -8,7 +8,7 @@
     <div class="col-md-8 col-md-offset-2">
 
         <h1>{{$building->name}}</h1>
-        <p class="lead">{{$building->description}}  </p>
+        <p class="lead">{!! $building->description !!}  </p>
         <strong>office number : {{$building->offices->count()}}</strong>
     </div>
     <div class="row">

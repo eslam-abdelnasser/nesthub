@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\User;
+use App\Admin;
 use Illuminate\Database\Eloquent\Model;
 
 class Shortlist extends Model
@@ -14,6 +14,6 @@ class Shortlist extends Model
     }
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Admin::class);
     }
 }

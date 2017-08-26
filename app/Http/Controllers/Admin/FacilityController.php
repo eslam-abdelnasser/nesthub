@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use Session;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class FacilityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-        $categories = Category::paginate(5);
-        return view('admin.dashboard.categories.index')->with('categories',$categories);
+        $facilities = Facility::paginate(5);
+        return view('admin.facilities.index')->with('facilities',$facilities);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +30,6 @@ class CategoryController extends Controller
     public function create()
     {
         //
-
     }
 
     /**
@@ -39,17 +40,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $this->validate($request ,array(
-            'name'=>'required|max:200'
+            'name'=>'required|max:200',
+            'status'=>'required|max:1',
+            'type'=>'required|max:1'
+
         ));
-        $category = new Category;
-        $category->name = $request->name;
-        $category->save();
+        $facility = new Facility;
+        $facility->name = $request->name;
+        $facility->status = $request->status;
+        $facility->type = $request->type;
+        $facility->save();
 
-        Session::flash('success',' Category Added');
-
-        return redirect()->route('category.index');
+        Session::flash('success',' Facility Added');
+        return redirect()->route('facility.index');
     }
 
     /**
@@ -60,9 +64,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
-        $category = Category::find($id);
-        return view('admin.dashboard.categories.show')->with('category',$category);
+        $facility = Facility::find($id);
+        return view('admin.facilities.show')->with('facility',$facility);
     }
 
     /**
@@ -73,7 +76,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facility = Facility::find($id);
+        if($facility->status == 0)
+            $facility->status = 1;
+        else
+            $facility->status = 0;
+        $facility->save();
+        return redirect()->route('facility.index');
+
     }
 
     /**

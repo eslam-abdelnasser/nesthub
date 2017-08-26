@@ -12,15 +12,14 @@
 
 @section('content')
 
-    <div class="col-md-10">
+    <div class="col-md-12">
         <h1> Buildings</h1>
         <p> Create New Building</p>
     </div>
 
 <div class="container">
     <div class="row">
-        {!! Form::model($building,['route' => ['building.update',$building->id],'method'=>'PUT']
-            ,array('data-parsley-validate'=>'')) !!}
+        {!! Form::model($building,['route' => ['building.update',$building->id],'method'=>'PUT'] ,array('data-parsley-validate'=>'')) !!}
         {{Form::label('name','Name:')}}
         {{ Form::text('name',null,["class"=>'form-control','required'=>'']) }}
         {{Form::label('phone','Phone Number:')}}
@@ -37,11 +36,12 @@
         {{Form::select('facilities[]',$facilities,null,['class'=>'form-control select2-multi','multiple'=>'multiple']) }}
 
         {{Form::label('description','Description:')}}
-        {{ Form::textarea('description',null,["class"=>'form-control','required'=>'']) }}
-        {{Form::label('highlights','HighLights:')}}
-        {{ Form::textarea('highlights',null,["class"=>'form-control','required'=>'']) }}
+        <textarea name="description" cols="50"  rows="10" class="form-control my-editor">{{$building->description}}</textarea>
+        {{Form::label('highlights','Highlights:')}}
+        <textarea name="highlights" cols="50"  rows="10" class="form-control my-editor">{{$building->highlights}}</textarea>
         {{Form::label('about_us','About us:')}}
-        {{ Form::textarea('about_us',null,["class"=>'form-control','required'=>'']) }}
+
+        <textarea name="about_us" cols="50"  rows="10" class="form-control my-editor">{{$building->about_us}}</textarea>
 
         {{Form::submit(' Update ' , array('class'=>'btn btn-success btn-lg '
              ,'style'=> 'margin-top: 20px; margin-bottom: 100px'))}}

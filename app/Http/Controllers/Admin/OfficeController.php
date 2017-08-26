@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Facility;
+use App\Models\Building;
+use App\Models\Office;
 use Illuminate\Http\Request;
 use Session;
+use App\Http\Controllers\Controller;
 
-class FacilityController extends Controller
+class OfficeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +17,8 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        $facilities = Facility::paginate(5);
-        return view('admin.dashboard.facilities.index')->with('facilities',$facilities);
+        //
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -37,22 +36,33 @@ class FacilityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , $building_id)
     {
-        $this->validate($request ,array(
-            'name'=>'required|max:200',
-            'status'=>'required|max:1',
-            'type'=>'required|max:1'
-
+        //
+        $this->validate($request,array(
+           'desk_number' => 'required',
+           'Area' => 'required',
+            'min_rental_per_month' => 'required',
+            'max_rental_per_month' => 'required',
+            'price' => 'required'
         ));
-        $facility = new Facility;
-        $facility->name = $request->name;
-        $facility->status = $request->status;
-        $facility->type = $request->type;
-        $facility->save();
 
-        Session::flash('success',' Facility Added');
-        return redirect()->route('facility.index');
+        $building = Building::find($building_id);
+        $office = new Office;
+        $office->desk_number = $request->desk_number;
+        $office->office_type = $request->office_type;
+        $office->publish_archive = 1;
+        $office->min_rental_per_month = $request->min_rental_per_month;
+        $office->max_rental_per_month = $request->max_rental_per_month;
+        $office->Area = $request->Area;
+        $office->price = $request->price;
+        //$office->associate($building);
+        $office->building_id = $building_id;
+
+        $office->save();
+        Session::flash('success',' Office Added Successfully !!');
+        return redirect()->route('building.show', $building_id);
+
     }
 
     /**
@@ -63,8 +73,7 @@ class FacilityController extends Controller
      */
     public function show($id)
     {
-        $facility = Facility::find($id);
-        return view('admin.dashboard.facilities.show')->with('facility',$facility);
+        //
     }
 
     /**
@@ -75,14 +84,7 @@ class FacilityController extends Controller
      */
     public function edit($id)
     {
-        $facility = Facility::find($id);
-        if($facility->status == 0)
-            $facility->status = 1;
-        else
-            $facility->status = 0;
-        $facility->save();
-        return redirect()->route('facility.index');
-
+        //
     }
 
     /**

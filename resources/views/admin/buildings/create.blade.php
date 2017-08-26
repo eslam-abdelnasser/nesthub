@@ -6,15 +6,7 @@
 
     {!! Html::style('css/parsley.css') !!}
     {!! HTML::style('css/select2.min.css') !!}
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'link image imagetools'
-
-        })
-    </script>
 @endsection
 @section('content')
     <div class="col-md-12">
@@ -51,15 +43,17 @@
 
 
                         {{Form::label('description','Description:')}}
-                        {{Form::textarea('description',null,array('class' => 'form-control','required'=>''))}}
+                          <textarea name="description" cols="50"  rows="10" class="form-control my-editor"></textarea>
                         {{Form::label('highlights','Highlights:')}}
-                        {{Form::textarea('highlights',null,array('class' => 'form-control','required'=>''))}}
+                            <textarea name="highlights" cols="50"  rows="10" class="form-control my-editor"></textarea>
                         {{Form::label('about_us','About us:')}}
-                        {{Form::textarea('about_us',null,array('class' => 'form-control','required'=>''))}}
+
+                            <textarea name="about_us" cols="50"  rows="10" class="form-control my-editor"></textarea>
                         {{Form::submit(' Add ' , array('class'=>'btn btn-success btn-lg btn-block'
                          ,'style'=> 'margin-top: 20px; margin-bottom: 100px'))}}
 
                     {!! Form::close() !!}
+
 
     </div>
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Building;
-use App\Models\Office;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Session;
+use App\Http\Controllers\Controller;
 
-class OfficeController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +17,8 @@ class OfficeController extends Controller
     public function index()
     {
         //
+        $categories = Category::paginate(5);
+        return view('admin.categories.index')->with('categories',$categories);
     }
 
     /**
@@ -27,6 +29,7 @@ class OfficeController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -35,33 +38,19 @@ class OfficeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , $building_id)
+    public function store(Request $request)
     {
         //
-        $this->validate($request,array(
-           'desk_number' => 'required',
-           'Area' => 'required',
-            'min_rental_per_month' => 'required',
-            'max_rental_per_month' => 'required',
-            'price' => 'required'
+        $this->validate($request ,array(
+            'name'=>'required|max:200'
         ));
+        $category = new Category;
+        $category->name = $request->name;
+        $category->save();
 
-        $building = Building::find($building_id);
-        $office = new Office;
-        $office->desk_number = $request->desk_number;
-        $office->office_type = $request->office_type;
-        $office->publish_archive = 1;
-        $office->min_rental_per_month = $request->min_rental_per_month;
-        $office->max_rental_per_month = $request->max_rental_per_month;
-        $office->Area = $request->Area;
-        $office->price = $request->price;
-        //$office->associate($building);
-        $office->building_id = $building_id;
+        Session::flash('success',' Category Added');
 
-        $office->save();
-        Session::flash('success',' Office Added Successfully !!');
-        return redirect()->route('building.show', $building_id);
-
+        return redirect()->route('category.index');
     }
 
     /**
@@ -73,6 +62,8 @@ class OfficeController extends Controller
     public function show($id)
     {
         //
+        $category = Category::find($id);
+        return view('admin.categories.show')->with('category',$category);
     }
 
     /**
