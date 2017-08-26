@@ -1,6 +1,9 @@
 @extends('admin.layout')
 
 @section('title','Categories')
+@section('css')
+    {!! Html::style('css/parsley.css') !!}
+@endsection
 
 @section('content')
 
@@ -38,8 +41,17 @@
                              ,'style'=> 'margin-top: 20px; margin-bottom: 30px'))}}
                 </div>
             </div>
-
+        </div>
+        <div class="text-center">
+            {!! $categories->links() !!}
+        </div>
+        <div class="text-center">
+            <strong>Page : {{ $categories->currentPage() }} of {{ $categories->lastPage() }}</strong>
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    {!! Html::script('js/parsley.min.js') !!}
 @endsection

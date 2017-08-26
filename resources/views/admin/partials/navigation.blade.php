@@ -15,8 +15,9 @@
                         <li><a href="dashboard_2.html">Dashboard 2</a></li>
                         <li><a href="dashboard_3.html">Dashboard 3</a></li>
                         <li><a href="dashboard_4.html">Dashboard 4</a></li>
-                        <li><a href="{{route ('category.index')}}"> Category </a></li>
                         <li><a href="{{route ('building.index')}}"> Building </a></li>
+                        <li><a href="{{route ('category.index')}}"> Category </a></li>
+                        <li><a href="{{route ('facility.index')}}"> Facility </a></li>
 
                     </ul>
                 </li>

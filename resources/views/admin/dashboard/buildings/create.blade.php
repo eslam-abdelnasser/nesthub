@@ -1,12 +1,26 @@
 @extends('admin.layout')
 
-@section('title','BuildingList')
+@section('title','Building')
 
+@section('css')
 
+    {!! Html::style('css/parsley.css') !!}
+    {!! HTML::style('css/select2.min.css') !!}
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'link image imagetools'
+
+        })
+    </script>
+@endsection
 @section('content')
-    <div class="col-md-10">
+    <div class="col-md-12">
         <h1> Buildings</h1>
         <p> Create New Building</p>
+        <hr>
     </div>
 
     <div class="container">
@@ -22,11 +36,19 @@
                         {{Form::text('working_time',null,array('class' => 'form-control','required'=>''))}}
 
                         {{Form::label('categories','Building Category:')}}
-                        <select class="form-control" name="categories[]" multiple="multiple">
+                        <select class="form-control select2-multi" name="categories[]" multiple="multiple">
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                         </select>
+
+                        {{Form::label('facilities','Building Facility:')}}
+                        <select class="form-control select2-multi" name="facilities[]" multiple="multiple">
+                            @foreach($facilities as $facility)
+                                <option value="{{$facility->id}}">{{$facility->name}}</option>
+                            @endforeach
+                        </select>
+
 
                         {{Form::label('description','Description:')}}
                         {{Form::textarea('description',null,array('class' => 'form-control','required'=>''))}}
@@ -40,8 +62,14 @@
                     {!! Form::close() !!}
 
     </div>
+
+
 @endsection
 
-@section('scripts')
-{!! Html::style('js/parsley.min.js') !!}
+@section('js')
+{!! Html::script('js/parsley.min.js') !!}
+{!! Html::script('js/select2.full.min.js') !!}
+<script type="text/javascript">
+    $('.select2-multi').select2();
+</script>
 @endsection

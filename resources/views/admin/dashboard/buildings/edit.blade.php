@@ -2,6 +2,14 @@
 
 @section('title','BuildingList')
 
+
+@section('css')
+
+    {!! Html::style('css/parsley.css') !!}
+    {!! HTML::style('css/select2.min.css') !!}
+
+@endsection
+
 @section('content')
 
     <div class="col-md-10">
@@ -21,8 +29,12 @@
         {{ Form::text('address',null,["class"=>'form-control','required'=>'']) }}
         {{Form::label('working_time','Working Time:')}}
         {{ Form::text('working_time',null,["class"=>'form-control','required'=>'']) }}
-        {{Form::label('categories','Building Category:')}}
-        {{Form::select('categories[]',$categories,null,['class'=>'form-control','multiple'=>'multiple'])}}
+
+        {{Form::label('categories','Building Category:' ,['class'=>'form-space-top']) }}
+        {{Form::select('categories[]',$categories,null,['class'=>'form-control select2-multi','multiple'=>'multiple']) }}
+
+        {{Form::label('facilities','Building Facility:' ,['class'=>'form-space-top']) }}
+        {{Form::select('facilities[]',$facilities,null,['class'=>'form-control select2-multi','multiple'=>'multiple']) }}
 
         {{Form::label('description','Description:')}}
         {{ Form::textarea('description',null,["class"=>'form-control','required'=>'']) }}
@@ -38,6 +50,14 @@
 
     </div>
 </div>
+@endsection
 
+@section('js')
+    {!! Html::script('js/parsley.min.js') !!}
+    {!! Html::script('js/select2.full.min.js') !!}
+    <script type="text/javascript">
+        $('.select2-multi').select2();
+
+    </script>
 
 @endsection

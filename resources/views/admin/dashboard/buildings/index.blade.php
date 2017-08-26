@@ -33,7 +33,7 @@
                 @foreach($buildings as $building)
 
                     <tr>
-                        <th>{{ $building->name }}</th>
+                        <td><a href="{{route('building.show',$building->id)}}"> {{$building->name}}</a></td>
                         <td>{{ $building->address }}</td>
                         <td>{{ $building->phone }}</td>
                         <td><a href="{{route ('building.edit',$building->id)}}" class="btn btn-default">Edit</a></td>
