@@ -50,12 +50,6 @@
             <div class="text-center">
                 <strong>Page : {{ $buildings->currentPage() }} of {{ $buildings->lastPage() }}</strong>
             </div>
-            <div class="container">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-            </div>
         </div>
     </div>
 </div>

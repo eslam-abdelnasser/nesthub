@@ -7,6 +7,8 @@
     {!! Html::style('css/parsley.css') !!}
     {!! HTML::style('css/select2.min.css') !!}
 
+
+
 @endsection
 @section('content')
     <div class="col-md-12">
@@ -25,7 +27,13 @@
                         {{Form::label('address','Address:')}}
                         {{Form::text('address',null,array('class' => 'form-control','required'=>''))}}
                         {{Form::label('working_time','Working Time:')}}
-                        {{Form::text('working_time',null,array('class' => 'form-control','required'=>''))}}
+                        <label>Specify a step for the minute field</label>
+                        <div class="input-group m-b-0">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" type="text" class="form-control">
+                            </div>
+                            <span class="input-group-addon bg-custom b-0 text-white"><i class="glyphicon glyphicon-time"></i></span>
+                        </div><!-- input-group -->
 
                         {{Form::label('categories','Building Category:')}}
                         <select class="form-control select2-multi" name="categories[]" multiple="multiple">
@@ -66,4 +74,9 @@
 <script type="text/javascript">
     $('.select2-multi').select2();
 </script>
+
+<script>
+    var resizefunc = [];
+</script>
+
 @endsection
