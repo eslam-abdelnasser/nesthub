@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Facility;
+use App\Models\Office;
+use App\User;
 use Illuminate\Http\Request;
 use App\Models\Building;
 use App\Models\Providing_request;
@@ -43,8 +45,9 @@ class BuildingController extends Controller
         //
         $categories = Category::all();
         $facility = Facility::all();
+        $user = User::all();
         return view('admin.buildings.create')->with('categories',$categories)
-            ->with('facilities',$facility);
+            ->with('facilities',$facility)->with('users',$user);
 
     }
 
@@ -64,7 +67,8 @@ class BuildingController extends Controller
             'highlights'=>'required',
             'phone'=>'required',
             'address'=>'required',
-            'working_time'=>'required'
+            'working_time'=>'required',
+            'user'=>'required'
         ));
 
         $building = new Building;
@@ -75,7 +79,7 @@ class BuildingController extends Controller
         $building->highlights = $request->highlights;
         $building->phone = $request->phone;
         $building->working_time = $request->working_time;
-        $building->user_id = 1;
+        $building->user_id = $request->user;
         $building->save();
 
 
@@ -148,7 +152,8 @@ class BuildingController extends Controller
             'highlights'=>'required',
             'phone'=>'required',
             'address'=>'required',
-            'working_time'=>'required'
+            'working_time'=>'required',
+            'user'=>'required'
         ));
 
         $building = Building::find($id);
@@ -159,7 +164,7 @@ class BuildingController extends Controller
         $building->address = $request->input('address');
         $building->phone = $request->input('phone');
         $building->working_time = $request->input('working_time');
-        $building->user_id= 1;
+        $building->user_id= $request->input('user');
         $building->save();
 
         if(isset($request->categories)){
@@ -168,11 +173,12 @@ class BuildingController extends Controller
             $building->categories()->sync(array());
         }
 
-        $building->facilities()->sync($request->facilities);
-
-
-
-
+        if(isset($request->facilities)){
+            $building->facilities()->sync($request->facilities);
+        }
+        else{
+            $building->facilities()->sync(array());
+        }
 
         Session::flash('success',' Your Building now Update');
 
@@ -189,5 +195,11 @@ class BuildingController extends Controller
     public function destroy($id)
     {
         //
+        $building = Building::find($id);
+        $building->delete();
+        Session::flash('success',' Building Deleted');
+
+        return redirect()->route('building.index');
+
     }
 }

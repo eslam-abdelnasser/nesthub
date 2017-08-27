@@ -3,6 +3,7 @@
 @section('title','Facilities')
 @section('css')
     {!! Html::style('css/parsley.css') !!}
+    {!! HTML::style('css/select2.min.css') !!}
 @endsection
 
 @section('content')
@@ -19,6 +20,8 @@
                         <th>Type</th>
                         <th>Status</th>
                         <th># Building</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
 
@@ -32,33 +35,49 @@
                             @else
                                 <td>Additional</td>
                             @endif
-                            @if($facility->status == 1)
-                                <td><a href="{{route('facility.edit',$facility->id)}}">ON</a></td>
+                            @if($facility->status == 0)
+                                <td>ON</td>
                             @else
-                                <td><a href="{{route('facility.edit',$facility->id)}}">OFF</a></td>
+                                <td>OFF</td>
                             @endif
                             <td>{{ $facility->buildings->count()}} Building</td>
+                            <td><a href="{{route ('facility.edit',$facility->id)}}" class="btn btn-default btn-block ">Edit</a></td>
+                            <td>
+                                {!! Form::open(['route' => ['facility.destroy', $facility->id ], 'method' => 'DELETE']) !!}
+                                {!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}
+                                {!! Form::close() !!}
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div><!-- end of information table div -->
+
             <div class="col-md-3">
                 <div class="well">
                     {!! Form::open(['route' => 'facility.store'],array('data-parsley-validate'=>'')) !!}
                     <h2>Add New Facility</h2>
                     {{Form::label('name','Name:')}}
-                    {{Form::text('name',null,array('class' => 'form-control','required'=>''))}}
+                    {{Form::text('name',null,array('class' => 'form-control','required'=>'' , 'style'=>'margin-bottom: 20px'))}}
+
                     {{Form::label('type','Type:')}}
-                    {{Form::text('type',null,array('class' => 'form-control','required'=>''))}}
+                    <select class="form-control select2-multi" name="type" required="" style="margin-bottom: 50px">
+                        <option value=0>Business</option>
+                        <option value=1>Additional</option>
+                    </select>
                     {{Form::label('status','Status:')}}
-                    {{Form::text('status',null,array('class' => 'form-control','required'=>''))}}
+                    <select class="form-control select2-multi" name="status" required="" style="margin-bottom: 50px">
+                        <option value=0>Enable</option>
+                        <option value=1>Disable</option>
+                    </select>
+
                     {{Form::submit(' Add New Facility ' , array('class'=>'btn btn-success btn-lg btn-block'
                              ,'style'=> 'margin-top: 20px; margin-bottom: 30px'))}}
                 </div>
             </div>
 
         </div>
+
         <div class="text-center">
             {!! $facilities->links() !!}
         </div>
@@ -70,4 +89,5 @@
 @endsection
 @section('js')
     {!! Html::script('js/parsley.min.js') !!}
+
 @endsection

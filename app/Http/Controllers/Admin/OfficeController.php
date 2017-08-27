@@ -47,7 +47,6 @@ class OfficeController extends Controller
             'price' => 'required'
         ));
 
-        $building = Building::find($building_id);
         $office = new Office;
         $office->desk_number = $request->desk_number;
         $office->office_type = $request->office_type;
@@ -85,6 +84,8 @@ class OfficeController extends Controller
     public function edit($id)
     {
         //
+        $office = Office::find($id);
+        return view('admin.officies.edit')->with('office',$office);
     }
 
     /**
@@ -96,7 +97,26 @@ class OfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,array(
+            'desk_number' => 'required',
+            'Area' => 'required',
+            'min_rental_per_month' => 'required',
+            'max_rental_per_month' => 'required',
+            'price' => 'required'
+        ));
+
+        $office = Office::find($id);
+        $office->desk_number = $request->input('desk_number');
+        $office->office_type = $request->input('office_type');
+        $office->publish_archive = 1;
+        $office->min_rental_per_month = $request->input('min_rental_per_month');
+        $office->max_rental_per_month = $request->input('max_rental_per_month');
+        $office->Area = $request->input('Area');
+        $office->price = $request->input('price');//$office->associate($building);
+        $building_id = $office->building_id;
+        $office->save();
+        Session::flash('success',' Office Added Successfully !!');
+        return redirect()->route('building.show', $building_id);
     }
 
     /**
@@ -108,5 +128,13 @@ class OfficeController extends Controller
     public function destroy($id)
     {
         //
+        $office = Office::find($id);
+        $id= $office->building_id;
+
+        $office->delete();
+        Session::flash('success',' Office Deleted');
+
+        return redirect()->route('building.show' , $id);
+
     }
 }

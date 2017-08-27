@@ -27,13 +27,8 @@
                         {{Form::label('address','Address:')}}
                         {{Form::text('address',null,array('class' => 'form-control','required'=>''))}}
                         {{Form::label('working_time','Working Time:')}}
-                        <label>Specify a step for the minute field</label>
-                        <div class="input-group m-b-0">
-                            <div class="bootstrap-timepicker">
-                                <input id="timepicker3" type="text" class="form-control">
-                            </div>
-                            <span class="input-group-addon bg-custom b-0 text-white"><i class="glyphicon glyphicon-time"></i></span>
-                        </div><!-- input-group -->
+                        {{Form::text('working_time',null,array('class' => 'form-control','required'=>''))}}
+
 
                         {{Form::label('categories','Building Category:')}}
                         <select class="form-control select2-multi" name="categories[]" multiple="multiple">
@@ -46,6 +41,13 @@
                         <select class="form-control select2-multi" name="facilities[]" multiple="multiple">
                             @foreach($facilities as $facility)
                                 <option value="{{$facility->id}}">{{$facility->name}}</option>
+                            @endforeach
+                        </select>
+
+                        {{Form::label('user','Owner:')}}
+                        <select class="form-control select2-multi" name="user" required="">
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                         </select>
 

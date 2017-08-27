@@ -17,6 +17,8 @@
                         <th>#</th>
                         <th>Category Name</th>
                         <th># Building</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
 
@@ -26,6 +28,13 @@
                             <td>{{ $category->id }}</td>
                             <td><a href="{{route('category.show',$category->id)}}"> {{$category->name}}</a></td>
                             <td>{{ $category->buildings->count()}} Building</td>
+                            <td><a href="{{route ('category.edit',$category->id)}}" class="btn btn-default btn-block ">Edit</a></td>
+                            <td>
+                                {!! Form::open(['route' => ['category.destroy', $category->id ], 'method' => 'DELETE']) !!}
+                                {!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}
+                                {!! Form::close() !!}
+                            </td>
+
                         </tr>
                     @endforeach
                     </tbody>

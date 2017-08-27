@@ -14,7 +14,7 @@
 
     <div class="col-md-12">
         <h1> Buildings</h1>
-        <p> Create New Building</p>
+        <p> Update your Building</p>
     </div>
 
 <div class="container">

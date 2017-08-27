@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-10">
             <h1> Listings</h1>
-            <p> View all your Nesthub listings</p>
+            <p> View all your Nesthub Buildings</p>
         </div>
         <div class="col-md-2">
             <a href="{{route ('building.create')}}" class="btn btn-lg btn-block btn-primary btn-h1-style" > Add Building </a>
@@ -28,6 +28,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <th></th>
+                <th></th>
                 </thead>
                 <tbody>
                 @foreach($buildings as $building)
@@ -36,9 +37,12 @@
                         <td><a href="{{route('building.show',$building->id)}}"> {{$building->name}}</a></td>
                         <td>{{ $building->address }}</td>
                         <td>{{ $building->phone }}</td>
-                        <td><a href="{{route ('building.edit',$building->id)}}" class="btn btn-default">Edit</a></td>
-                        <td><a href="#" class="btn btn-primary">Add Office</a></td>
-
+                        <td><a href="{{route ('building.edit',$building->id)}}" class="btn btn-default btn-block">Edit</a></td>
+                        <td>
+                            {!! Form::open(['route' => ['building.destroy', $building->id ], 'method' => 'DELETE']) !!}
+                            {!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}
+                            {!! Form::close() !!}
+                        </td>
                     </tr>
 
                 @endforeach
