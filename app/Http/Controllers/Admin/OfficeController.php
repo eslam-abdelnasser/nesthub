@@ -44,7 +44,8 @@ class OfficeController extends Controller
            'Area' => 'required',
             'min_rental_per_month' => 'required',
             'max_rental_per_month' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'feature' => 'required'
         ));
 
         $office = new Office;
@@ -55,6 +56,7 @@ class OfficeController extends Controller
         $office->max_rental_per_month = $request->max_rental_per_month;
         $office->Area = $request->Area;
         $office->price = $request->price;
+        $office->feature = $request->feature;
         //$office->associate($building);
         $office->building_id = $building_id;
 
@@ -102,7 +104,8 @@ class OfficeController extends Controller
             'Area' => 'required',
             'min_rental_per_month' => 'required',
             'max_rental_per_month' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'feature' => 'required'
         ));
 
         $office = Office::find($id);
@@ -113,6 +116,7 @@ class OfficeController extends Controller
         $office->max_rental_per_month = $request->input('max_rental_per_month');
         $office->Area = $request->input('Area');
         $office->price = $request->input('price');//$office->associate($building);
+        $office->feature = $request->feature;
         $building_id = $office->building_id;
         $office->save();
         Session::flash('success',' Office Added Successfully !!');

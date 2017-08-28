@@ -96,6 +96,9 @@
                     {{Form::label('Area','SQUARE FOOTAGE')}}
                     {{Form::text('Area',null,['class' => 'form-control']) }}
 
+                    {{Form::label('feature','Features:')}}
+                    <textarea name="feature" cols="50"  rows="10" class="form-control my-editor"></textarea>
+
                     {{Form::submit('Add Office', ['class' => 'btn btn-success btn-block' ,
                      'style' => 'margin-top:20px;'])}}
                 </div>
