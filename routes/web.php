@@ -33,6 +33,8 @@ Route::post('/admin-login','Admin\Auth\AdminLoginController@loginPost')->name('l
 Route::resource('building', 'Admin\BuildingController');
 Route::resource('category', 'Admin\CategoryController');
 Route::resource('facility', 'Admin\FacilityController');
+Route::resource('user', 'Admin\UserController');
+Route::resource('owner', 'Admin\OwnerController');
 Route::resource('office', 'Admin\OfficeController');
 Route::post('office/{building_id}',['uses'=>'Admin\OfficeController@store' , 'as' => 'office.store']);
 

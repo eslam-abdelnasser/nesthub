@@ -12,7 +12,6 @@ use App\Models\Providing_request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Session;
-//use Purifier;
 
 
 class BuildingController extends Controller
@@ -82,6 +81,9 @@ class BuildingController extends Controller
         $building->user_id = $request->user;
         $building->save();
 
+        $user = User::find($request->user);
+        $user->type = 1;
+        $user->save();
 
         $building->categories()->sync($request->categories , false);
         $building->facilities()->sync($request->facilities,false);
@@ -196,8 +198,12 @@ class BuildingController extends Controller
     {
         //
         $building = Building::find($id);
+        $user = User::find($building->user_id);
+        $user->type = 0;
+        $user->save();
         $building->delete();
         Session::flash('success',' Building Deleted');
+
 
         return redirect()->route('building.index');
 

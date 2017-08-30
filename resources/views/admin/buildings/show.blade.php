@@ -1,7 +1,7 @@
 @extends('admin.layout')
 <?php $buildingname = htmlspecialchars($building->name)?>
 
-@section('title'," $buildingname")
+@section('title',"$buildingname")
 
 @section('css')
     {!! Html::style('css/parsley.css') !!}
