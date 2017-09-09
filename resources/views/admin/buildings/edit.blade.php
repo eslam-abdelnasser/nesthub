@@ -35,6 +35,13 @@
         {{Form::label('facilities','Building Facility:' ,['class'=>'form-space-top']) }}
         {{Form::select('facilities[]',$facilities,null,['class'=>'form-control select2-multi','multiple'=>'multiple']) }}
 
+        {{Form::label('user','Owner:')}}
+        <select class="form-control select2-multi" name="user" required="">
+            @foreach($users as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
+            @endforeach
+        </select>
+
         {{Form::label('description','Description:')}}
         <textarea name="description" cols="50"  rows="10" class="form-control my-editor">{{$building->description}}</textarea>
         {{Form::label('highlights','Highlights:')}}

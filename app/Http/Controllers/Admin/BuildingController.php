@@ -133,8 +133,11 @@ class BuildingController extends Controller
         {
             $facilities2[$facility->id] = $facility->name;
         }
+
+        $users = User::all();
+
         return view('admin.buildings.edit')->with('building',$building)->with('categories',$categories2)
-            ->with('facilities',$facilities2);
+            ->with('facilities',$facilities2)->with('users',$users);
     }
 
     /**

@@ -34,13 +34,15 @@
                         <select class="form-control select2-multi" name="categories[]" multiple="multiple">
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
+                            @endforeach
                         </select>
 
                         {{Form::label('facilities','Building Facility:')}}
                         <select class="form-control select2-multi" name="facilities[]" multiple="multiple">
                             @foreach($facilities as $facility)
-                                <option value="{{$facility->id}}">{{$facility->name}}</option>
+                                @if($facility-> status == 0){
+                                    <option value="{{$facility->id}}">{{$facility->name}}</option>
+                                }@endif
                             @endforeach
                         </select>
 
