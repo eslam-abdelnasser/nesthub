@@ -10,50 +10,72 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <h1>Facility Section</h1>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Facility Name</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th># Building</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
+            <h1>Facility Section</h1>
 
-                    <tbody>
-                    @foreach($facilities as $facility)
+            <div class="col-lg-8">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form role="form">
+                                <div class="form-group contact-search m-b-30" >
+                                    <input type="text" id="search" class="form-control" placeholder="Search...">
+                                    <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                </div> <!-- form-group -->
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover mails m-0 table table-actions-bar">
+                        <thead>
                         <tr>
-                            <td>{{ $facility->id }}</td>
-                            <td><a href="{{route('facility.show',$facility->id)}}"> {{$facility->name}}</a></td>
-                            @if($facility->type == 0)
-                                <td>business</td>
-                            @else
-                                <td>Additional</td>
-                            @endif
-                            @if($facility->status == 0)
-                                <td>ON</td>
-                            @else
-                                <td>OFF</td>
-                            @endif
-                            <td>{{ $facility->buildings->count()}} Building</td>
-                            <td><a href="{{route ('facility.edit',$facility->id)}}" class="btn btn-default btn-block ">Edit</a></td>
-                            <td>
-                                {!! Form::open(['route' => ['facility.destroy', $facility->id ], 'method' => 'DELETE']) !!}
-                                {!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}
-                                {!! Form::close() !!}
-                            </td>
+                            <th>#</th>
+                            <th>Facility Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th># Building</th>
+                            <th>Action</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                        @foreach($facilities as $facility)
+                            <tr>
+                                <td>{{ $facility->id }}</td>
+                                <td><a href="{{route('facility.show',$facility->id)}}"> {{$facility->name}}</a></td>
+                                @if($facility->type == 0)
+                                    <td><span class="label label-purple">business</span></td>
+                                @else
+                                    <td><span class="label label-info">Additional</span></td>
+                                @endif
+                                @if($facility->status == 0)
+                                    <td><span class="label label-success">ON</span></td>
+                                @else
+                                    <td><span class="label label-danger">OFF</span></td>
+                                @endif
+                                <td>{{ $facility->buildings->count()}} Building</td>
+                                <td>
+                                    <a href="{{route ('facility.edit',$facility->id)}}" class="table-action-btn">
+                                        <i class="md md-edit"></i>
+                                    </a>
+                                    <a href="{{route ('facility.destroy',$facility->id)}}" class="table-action-btn">
+                                        <i class="md md-close"></i>
+                                    </a>
+                                </td>
+
+                                {{--<td><a href="{{route ('facility.edit',$facility->id)}}" class="btn btn-default btn-block ">Edit</a></td>--}}
+                                {{--<td>--}}
+                                {{--{!! Form::open(['route' => ['facility.destroy', $facility->id ], 'method' => 'DELETE']) !!}--}}
+                                {{--{!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}--}}
+                                {{--{!! Form::close() !!}--}}
+                                {{--</td>--}}
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div><!-- end of information table div -->
 
-            <div class="col-md-3">
+            <div class="col-lg-4">
                 <div class="well">
                     {!! Form::open(['route' => 'facility.store'],array('data-parsley-validate'=>'')) !!}
                     <h2>Add New Facility</h2>
@@ -75,7 +97,6 @@
                              ,'style'=> 'margin-top: 20px; margin-bottom: 30px'))}}
                 </div>
             </div>
-
         </div>
 
         <div class="text-center">

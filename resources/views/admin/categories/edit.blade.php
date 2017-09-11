@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title','BuildingList')
+@section('title','Categories')
 
 
 @section('css')
@@ -28,6 +28,8 @@
    </div>
 
 
+
+
 @endsection
 
 @section('js')
@@ -37,5 +39,6 @@
         $('.select2-multi').select2();
 
     </script>
+
 
 @endsection

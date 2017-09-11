@@ -9,16 +9,27 @@
 
     <div class="container">
         <div class="row">
+            <h1>Category Section</h1>
+
             <div class="col-md-8">
-                <h1>Category Section</h1>
-                <table class="table">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form role="form">
+                                <div class="form-group contact-search m-b-30" >
+                                    <input type="text" id="search" class="form-control" placeholder="Search...">
+                                    <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                </div> <!-- form-group -->
+                            </form>
+                        </div>
+                    </div>
+                <table class="table table-hover mails m-0 table table-actions-bar">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Category Name</th>
                         <th># Building</th>
-                        <th></th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
 
@@ -27,19 +38,30 @@
                         <tr>
                             <td>{{ $category->id }}</td>
                             <td><a href="{{route('category.show',$category->id)}}"> {{$category->name}}</a></td>
-                            <td>{{ $category->buildings->count()}} Building</td>
-                            <td><a href="{{route ('category.edit',$category->id)}}" class="btn btn-default btn-block ">Edit</a></td>
+                            <td><span class="label label-info">{{ $category->buildings->count()}} Building</span></td>
                             <td>
-                                {!! Form::open(['route' => ['category.destroy', $category->id ], 'method' => 'DELETE']) !!}
-                                {!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}
-                                {!! Form::close() !!}
+                                <a href="{{route ('category.edit',$category->id)}}" class="table-action-btn">
+                                    <i class="md md-edit"></i>
+                                </a>
+                                <a href="{{route ('category.destroy',$category->id)}}" class="table-action-btn">
+                                    <i class="md md-close"></i>
+                                </a>
                             </td>
+
+                            {{--<td><a href="{{route ('category.edit',$category->id)}}" class="btn btn-default btn-block ">Edit</a></td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::open(['route' => ['category.destroy', $category->id ], 'method' => 'DELETE']) !!}--}}
+                                {{--{!! Form::submit('Delete' , ['class' => 'btn btn-danger btn-block']) !!}--}}
+                                {{--{!! Form::close() !!}--}}
+                            {{--</td>--}}
 
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-            </div><!-- end of information table div -->
+                </div>
+            </div>
+
             <div class="col-md-3">
                 <div class="well">
                     {!! Form::open(['route' => 'category.store'],array('data-parsley-validate'=>'')) !!}

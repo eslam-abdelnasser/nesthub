@@ -36,7 +36,8 @@ Route::resource('facility', 'Admin\FacilityController');
 Route::resource('user', 'Admin\UserController');
 Route::resource('owner', 'Admin\OwnerController');
 Route::resource('office', 'Admin\OfficeController');
+Route::resource('image', 'Admin\ImageController');
 Route::post('office/{building_id}',['uses'=>'Admin\OfficeController@store' , 'as' => 'office.store']);
-
+Route::post('building/{building_id}/photos' , 'Admin\BuildingController@addPhoto');
 
 

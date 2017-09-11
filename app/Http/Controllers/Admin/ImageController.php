@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Models\Building_image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Session;
+use Illuminate\Support\Facades\Storage;
 
-
-class UserController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('admin.users.index')->with('users',$users);
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -51,11 +48,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-        dd('ahmed');
 
-        $user = User::find($id);
-        return view('admin.users.show')->with('user',$user);
+        $image = Building_image::find($id);
+        $image_url = $image->image_url;
+        Storage::delete($image_url); // di msh sha8ala;
+        $image->delete();
+        return back();
     }
 
     /**
@@ -65,7 +63,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {        dd("ahmed");
+
         //
     }
 
@@ -90,11 +89,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        dd('ahmed');
-        $user = User::find($id);
-        $user->delete();
-        Session::flash('success',' User Deleted');
 
-        return redirect()->route('user.index');
+//        $image = Building_image::find($id);
+//        $image_url = $image->image_url;
+//        $image.delete();
+//        Storage::delete('');
+
     }
 }

@@ -30,7 +30,7 @@ class BuildingController extends Controller
     public function index()
     {
         //
-        $buildings = Building::paginate(2);
+        $buildings = Building::paginate(10);
         return view('admin.buildings.index')->with('buildings',$buildings);
     }
 
@@ -108,6 +108,22 @@ class BuildingController extends Controller
         return view('admin.buildings.show')->with('building',$building);
     }
 
+    public function addPhoto($building_id,Request $request)
+    {
+
+        //dd($request->file('file'));
+        $this->validate($request,[
+            'image' => 'mimes:jpg,jpeg,png,dmp'
+        ]);
+
+        $file = $request->file('image');
+        $name = time().$file->getClientOriginalName();
+        $file->move('buildings/images' ,$name);
+        $building = Building::find($building_id);
+        $building->building_images()->create(['image_url' => "/buildings/images/{$name}"]);
+
+        return 'done';
+    }
     /**
      * Show the form for editing the specified resource.
      *

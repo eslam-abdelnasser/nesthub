@@ -151,6 +151,7 @@
 <script src="{{asset('admin-panel/assets/js/jquery.core.js')}}"></script>
 <script src="{{asset('admin-panel/assets/js/jquery.app.js')}}"></script>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.counter').counterUp({

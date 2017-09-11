@@ -18,6 +18,7 @@ class OfficeController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -25,9 +26,11 @@ class OfficeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $building = Building::find( ((int)$request->get('building')));
+        return view('admin.officies.create')->with('building',$building);
     }
 
     /**
@@ -63,7 +66,6 @@ class OfficeController extends Controller
         $office->save();
         Session::flash('success',' Office Added Successfully !!');
         return redirect()->route('building.show', $building_id);
-
     }
 
     /**
@@ -75,6 +77,8 @@ class OfficeController extends Controller
     public function show($id)
     {
         //
+        $building = Building::find($id);
+        return view('admin.officies.index')->with('building',$building);
     }
 
     /**

@@ -200,7 +200,7 @@ File: Pages
 .select2-container .select2-selection--single .select2-selection__rendered {
   line-height: 36px !important;
   padding-left: 12px !important;
-  color: #ffffff !important;
+  color: #000 !important;
 }
 .select2-container .select2-selection--single .select2-selection__arrow {
   height: 34px;

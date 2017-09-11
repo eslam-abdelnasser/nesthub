@@ -17,56 +17,77 @@
         <hr>
     </div>
 
-    <div class="container">
+    <div class="card-box">
 
-                    {!! Form::open(['route' => 'building.store'],array('data-parsley-validate'=>'')) !!}
-                        {{Form::label('name','Name:')}}
-                        {{Form::text('name',null,array('class' => 'form-control','required'=>''))}}
-                        {{Form::label('phone','Phone Number:')}}
-                        {{Form::text('phone',null,array('class' => 'form-control','required'=>''))}}
-                        {{Form::label('address','Address:')}}
-                        {{Form::text('address',null,array('class' => 'form-control','required'=>''))}}
-                        {{Form::label('working_time','Working Time:')}}
-                        {{Form::text('working_time',null,array('class' => 'form-control','required'=>''))}}
+        <form method="POST" action="/building" enctype="multipart/form-data" data-parsley-validate="">
+            {{csrf_field()}}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required="">
+            </div>
 
+            <div class="form-group">
+                <label for="phone">phone:</label>
+                <input type="text" name="phone" id="phone" class="form-control" required="">
+            </div>
 
-                        {{Form::label('categories','Building Category:')}}
-                        <select class="form-control select2-multi" name="categories[]" multiple="multiple">
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
-                            @endforeach
-                        </select>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" name="address" id="address" class="form-control" required="">
+            </div>
 
-                        {{Form::label('facilities','Building Facility:')}}
-                        <select class="form-control select2-multi" name="facilities[]" multiple="multiple">
-                            @foreach($facilities as $facility)
-                                @if($facility-> status == 0){
-                                    <option value="{{$facility->id}}">{{$facility->name}}</option>
-                                }@endif
-                            @endforeach
-                        </select>
+            <div class="form-group">
+                <label for="working_time">Working Time:</label>
+                <input type="text" name="working_time" id="working_time" class="form-control" required="">
+            </div>
 
-                        {{Form::label('user','Owner:')}}
-                        <select class="form-control select2-multi" name="user" required="">
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
+            <div class="form-group">
+                <label for="categories">Building Categories:</label>
+                <select class="form-control select2-multi" name="categories[]" multiple="multiple" required="">
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
 
 
-                        {{Form::label('description','Description:')}}
-                          <textarea name="description" cols="50"  rows="10" class="form-control my-editor"></textarea>
-                        {{Form::label('highlights','Highlights:')}}
-                            <textarea name="highlights" cols="50"  rows="10" class="form-control my-editor"></textarea>
-                        {{Form::label('about_us','About us:')}}
+            <div class="form-group">
+                <label for="facilities">Building Facilities:</label>
+                <select class="form-control select2-multi" name="facilities[]" multiple="multiple" required="">
+                    @foreach($facilities as $facility)
+                        @if($facility-> status == 0){
+                        <option value="{{$facility->id}}">{{$facility->name}}</option>
+                        }@endif
+                    @endforeach
+                </select>
+            </div>
 
-                            <textarea name="about_us" cols="50"  rows="10" class="form-control my-editor"></textarea>
-                        {{Form::submit(' Add ' , array('class'=>'btn btn-success btn-lg btn-block'
-                         ,'style'=> 'margin-top: 20px; margin-bottom: 100px'))}}
 
-                    {!! Form::close() !!}
+            <div class="form-group">
+                <label for="user">Building Owner:</label>
+                <select class="form-control select2-multi" style="color: black!important;" name="user" required="">
+                    @foreach($users as $user)
+                        @if($user->type==0){
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        }
+                        @endif
+                    @endforeach
+                </select>
+            </div>
 
 
+            {{Form::label('description','Description:')}}
+            <textarea name="description" cols="50"  rows="10" class="form-control my-editor"></textarea>
+            {{Form::label('highlights','Highlights:')}}
+            <textarea name="highlights" cols="50"  rows="10" class="form-control my-editor"></textarea>
+            {{Form::label('about_us','About us:')}}
+            <textarea name="about_us" cols="50"  rows="10" class="form-control my-editor"></textarea>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg btn-block" style= "margin-top: 20px" style=" margin-bottom: 100px">Add</button>
+            </div>
+        </form>
     </div>
 
 
