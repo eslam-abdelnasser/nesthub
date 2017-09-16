@@ -46,7 +46,7 @@
                                         {{$user->id}}
                                     </td>
                                     <td>
-                                        <img src="{{$user->image_url}}" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
+                                        <img src="{{asset('buildings/images/'. $user->image_url  )}}" alt="contact-img" title="contact-img" class="img-circle thumb-sm" />
                                     </td>
 
                                     <td>

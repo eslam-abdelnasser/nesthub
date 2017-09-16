@@ -95,12 +95,12 @@
                 <div class="card-box m-b-10">
                     <div class="table-box opport-box container">
                         <div class="table-detail">
-                            <img src="" alt="img" class="img-circle thumb-lg m-r-15" />
+                            <img  alt="img" class="img-circle thumb-lg m-r-15" />
                         </div>
 
                         <div class="table-detail">
                             <div class="member-info">
-                                <h4 class="m-t-0"><b>{{$building->name}}</b></h4>
+                                <h4 class="m-t-0"><b><a href="{{route('building.show',$building->id)}}"> {{$building->name}}</a></b></h4>
                                 <p class="text-dark m-b-5"><b> </b> <i class="fa fa-mobile-phone"> {{$building ->phone}}</i></p>
                                 <p class="text-dark m-b-5"><b> </b> <i class="fa fa-map-marker"> {{$building ->address}}</i></p>
 

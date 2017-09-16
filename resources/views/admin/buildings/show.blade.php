@@ -19,11 +19,12 @@
                     <div class="row">
                         @foreach($image_set as $image)
                             <div class="col-md-3">
-                                <form method="DELETE" action="/image/{{$image->id}}">
+                                <form method="post" action="/image/{{$image->id}}">
+                                    <input type="hidden" name="_method" value="DELETE"/>
                                     {!! csrf_field() !!}
                                     <button type="submit" class="btn-danger">Delete</button>
                                     <a href="#">
-                                        <img src="{{ $image->image_url }}" alt="" style="max-height: 200px ;max-width: 200px;margin-bottom: 1em">
+                                        <img src="{{asset('buildings/images/'. $image->image_url  )}}" alt="" style="max-height: 200px ;max-width: 200px;margin-bottom: 1em">
                                     </a>
                                     </form>
                             </div>

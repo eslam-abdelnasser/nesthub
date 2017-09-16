@@ -16,12 +16,12 @@ use Session;
 
 class BuildingController extends Controller
 {
-/*
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-*/
+
+//    public function __construct()
+//    {
+//        $this->middleware('auth:admin');
+//    }
+
     /**
      * Display a listing of the resource.
      *
@@ -120,7 +120,7 @@ class BuildingController extends Controller
         $name = time().$file->getClientOriginalName();
         $file->move('buildings/images' ,$name);
         $building = Building::find($building_id);
-        $building->building_images()->create(['image_url' => "/buildings/images/{$name}"]);
+        $building->building_images()->create(['image_url' => $name]);
 
         return 'done';
     }
