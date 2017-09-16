@@ -6,7 +6,7 @@ use App\Models\Building_image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-
+use File;
 class ImageController extends Controller
 {
     /**
@@ -48,12 +48,6 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-
-        $image = Building_image::find($id);
-        $image_url = $image->image_url;
-        Storage::delete($image_url); // di msh sha8ala;
-        $image->delete();
-        return back();
     }
 
     /**
@@ -89,11 +83,19 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
-
 //        $image = Building_image::find($id);
 //        $image_url = $image->image_url;
 //        $image.delete();
 //        Storage::delete('');
+        $image = Building_image::find($id);
+        $image_url = $image->image_url;
+//        dd($image_url);
+        $dir = public_path('buildings/images/');
+        File::delete($dir . $image_url);
+        $image->delete();
+        return back();
+
+
 
     }
 }
