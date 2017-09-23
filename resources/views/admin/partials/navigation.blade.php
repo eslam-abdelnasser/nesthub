@@ -18,9 +18,9 @@
                         <li><a href="{{route ('building.index')}}"> Building </a></li>
                         <li><a href="{{route ('category.index')}}"> Category </a></li>
                         <li><a href="{{route ('facility.index')}}"> Facility </a></li>
-                        <li><a href="{{route ('facility.index')}}"> Admins </a></li>
-                        <li><a href="{{route ('facility.index')}}"> Providing REQ </a></li>
-                        <li><a href="{{route ('facility.index')}}"> Viewing REQ </a></li>
+                        <li><a href="{{route ('admin.index')}}"> Admins </a></li>
+                        <li><a href="{{route ('roles.index')}}"> Roles</a></li>
+                        <li><a href="{{route ('permission.index')}}"> Permission</a></li>
 
 
                     </ul>
