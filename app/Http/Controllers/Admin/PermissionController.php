@@ -140,7 +140,7 @@ class PermissionController extends Controller
     // delete the relation between spacific role and permission
     public function delete_relation($role_id,$permission_id)
     {
-        $role = Ro  le::find($role_id);
+        $role = Role::find($role_id);
         $role->permissions()->detach($permission_id);
         return redirect()->back();
     }
