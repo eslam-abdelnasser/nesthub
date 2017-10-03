@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use Session;
 
 
+use App\Models\Admin ;
+use App\Role;
+use App\Permission;
+//use  Illuminate\Routing\Route ;
+use Illuminate\Support\Facades\Route;
+//use  Illuminate\Routing\Route ;
 class UserController extends Controller
 {
     /**
@@ -96,5 +102,33 @@ class UserController extends Controller
         Session::flash('success',' User Deleted');
 
         return redirect()->route('user.index');
+    }
+
+
+
+
+    public function testRoles(){
+
+//        $admin = new Role();
+//        $admin->name         = 'admin';
+//        $admin->display_name = 'User Administrator'; // optional
+//        $admin->description  = 'User is allowed to manage and edit other users'; // optional
+//        $admin->save();
+//        $admin_user = Admin::find(1);
+//
+////        dd($admin_user);
+//        $admin_user->roles()->attach(1);
+
+//        dd(Route::getName());
+        $routeCollection = Route::getRoutes();
+//        echo '<pre>';
+//        dd($routeCollection->nameList);
+        foreach ($routeCollection as $value) {
+            $data[] = $value->getName();
+        }
+
+        dd($data);
+
+
     }
 }

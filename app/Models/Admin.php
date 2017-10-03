@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable , EntrustUserTrait;
 
     /**
      * The attributes that are mass assignable.
